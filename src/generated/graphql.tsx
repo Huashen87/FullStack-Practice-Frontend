@@ -41,6 +41,7 @@ export type Post = {
   creatorId: Scalars['Float'];
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
+  textSnippet: Scalars['String'];
 };
 
 export type User = {
@@ -191,7 +192,12 @@ export type PostsQueryVariables = Exact<{
 }>;
 
 export type PostsQuery = { __typename?: 'Query' } & {
-  posts: Array<{ __typename?: 'Post' } & Pick<Post, 'id' | 'title' | 'createdAt' | 'updatedAt'>>;
+  posts: Array<
+    { __typename?: 'Post' } & Pick<
+      Post,
+      'id' | 'title' | 'textSnippet' | 'points' | 'createdAt' | 'updatedAt'
+    >
+  >;
 };
 
 export const RegularErrorFragmentDoc = gql`
@@ -311,6 +317,8 @@ export const PostsDocument = gql`
     posts(limit: $limit, cursor: $cursor) {
       id
       title
+      textSnippet
+      points
       createdAt
       updatedAt
     }
